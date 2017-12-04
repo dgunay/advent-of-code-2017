@@ -13,7 +13,7 @@
 $test_cases = array(
   // 1     => 0,
   // 12    => 3,
-  // 23    => 2,
+  23    => 2,
   1024  => 31,
 );
 
@@ -33,36 +33,25 @@ echo solve($input);
 //  Solution
 //////////////////
 function solve(int $input) : int {
-  // $distances = array(
-  //   Direction::RIGHT => 0, 
-  //   Direction::UP    => 0, 
-  //   Direction::LEFT  => 0, 
-  //   Direction::DOWN  => 0, 
-  // );
-
   $axes = array(
     'x' => 0,
     'y' => 0,
   );
 
   $number = 1;
-  $run_distance = 1;
+  $run_distance = 0;
   $direction = Direction::RIGHT;
   for ($i = 0 ; $i <= $input ; $i++) {
+    // every two runs, increment distance to travel
+    if ($i % 2 == 0) {
+      $run_distance++;
+    }
+
     $direction = $i % 4;
     
     // one one, two two, three three, four four    
     for ($j = 0; $j < $run_distance; $j++) {
       $number++;
-      // echo $direction . '(dist: ' . $run_distance . ')' . PHP_EOL;
-      
-      // echo $direction . PHP_EOL;
-      // echo (($direction + 2) % 4) . PHP_EOL;
-      // exit;
-
-      // decrement the opposite direction
-      // $distances[$direction]++;
-      // $distances[($direction + 2) % 4]--;
 
       switch ($direction) {
         case Direction::UP:
@@ -77,20 +66,14 @@ function solve(int $input) : int {
         case Direction::RIGHT:
           $axes['x']++;
           break;
+        default: throw new Exception('Invalid direction');
       }
 
       if ($number == $input) {
-        print_r($axes); exit;
-
         return array_sum(array_map(function($val) { 
           return abs($val);
         }, $axes));
       }
-    }
-
-    // every two runs, increment distance to travel
-    if ($i % 2 == 0) {
-      $run_distance++;
     }
   }
 }
