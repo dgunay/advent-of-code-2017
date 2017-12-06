@@ -1,5 +1,7 @@
 <?php
 
+require_once(__DIR__ . '/Direction.php');
+
 /**
  * 17  16  15  14  13
  * 18   5   4   3  12
@@ -76,11 +78,4 @@ function solve(int $input) : int {
       }
     }
   }
-}
-
-abstract class Direction {
-  const RIGHT = 0;
-  const UP    = 1;
-  const LEFT  = 2;
-  const DOWN  = 3;
 }
