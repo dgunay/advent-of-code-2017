@@ -21,14 +21,17 @@
  */
 
 
-
+solve(2); exit;
 
 
 ///////////////
 //  Solution
 ///////////////
 function solve(int $input) : int {
-  // I think I'll need to use a grid of some sort...
+	// I think I'll need to use a grid of some sort...
+	// this kind of sucks, maybe I should use C++...
+	$grid = array_fill(0, 30000, array_fill(0, 30000, 0));
 
+	print_r($grid); exit;
 
 }
