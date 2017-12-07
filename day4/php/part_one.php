@@ -25,7 +25,7 @@ $test_cases = array(
 );
 
 foreach ($test_cases as $input => $answer) {
-  $result = solve($input);
+  $result = is_valid($input);
   if ($result !== $answer) {
     exit('Failed case ' . $input 
       . '. Result was '. $result . ', should be ' . $answer);
@@ -34,32 +34,38 @@ foreach ($test_cases as $input => $answer) {
 
 echo solve(file_get_contents('../input.txt'));
 
+
 ////////////////////
 //  Solution
 ////////////////////
 
-function solve(string $input) : bool {
+function solve(string $input) : int {
   $lines = explode("\n", $input);
 
+  $valid_passphrases = 0;
   foreach ($lines as $line) {
-    // collect words 
-    $words = explode(' ', $line);
-
-    foreach ($words as $comparison_word) {
-      $occurences = 0;
-      foreach ($words as $word) {
-        if ($word === $comparison_word) {
-          $occurences++;
-
-          if ($occurences > 1) {
-            
-          }
-        }
-      }
+    $words = explode(' ', trim($line));
+    if (count($words) == count(array_unique($words))) {
+      $valid_passphrases++;
     }
   }
+
+  return $valid_passphrases;
 }
 
 function is_valid(string $passphrase) : bool {
+  // collect words 
+  $words = explode(' ', $passphrase);
 
+  $counts = array();
+  foreach ($words as $word) {
+    if (!array_key_exists($word, $counts)) {
+      $counts[$word] = 1;
+    }
+    else {
+      return false;
+    }    
+  }
+
+  return true;
 }
