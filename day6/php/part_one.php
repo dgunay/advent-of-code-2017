@@ -43,7 +43,6 @@ function solve(string $input) : int {
   $num_cycles = 0;
   while($num_cycles < 20000) {
     // find bank with the most blocks
-    // print_r($banks);
     $most_blocks = 0;
     $index_of_most_blocks = 0;
     for ($i = 0 ; $i < $len ; $i++) {
@@ -52,10 +51,6 @@ function solve(string $input) : int {
         $most_blocks = $banks[$i];
       }
     }
-
-    // if ($num_cycles == 1) {
-    //   echo $index_of_most_blocks; exit;
-    // }
 
     // remove all blocks from the index of most blocks
     $blocks_to_redistribute = $banks[$index_of_most_blocks];
@@ -71,10 +66,6 @@ function solve(string $input) : int {
         break;
       }
     }
-
-    // if ($num_cycles == 1) {
-    //   print_r($banks); exit;
-    // }
 
     $num_cycles++;    
 
