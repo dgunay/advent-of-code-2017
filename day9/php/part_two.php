@@ -15,7 +15,7 @@
  * 
  * Each group gets 1 point for its depth. The first group is 1. 
  * 
- * What's the total score?
+ * Count all the chars in the garbage, except for <>, cancelled chars, or !
  */
 
 
@@ -25,6 +25,7 @@ echo solve(fopen('../input.txt', 'r'));
 function solve($stream) : int {
   $score = 0;
   $depth = 0;
+  $chars_in_garbage = 0;
 
   $prev_char = null;
   $in_garbage = false;
@@ -36,25 +37,22 @@ function solve($stream) : int {
     }
     else {
       if (!$in_garbage) {
-        // is it an opener to anything?
-        if ($char == '{') {
-          $depth++;
-          $score += $depth;
-        }
-        elseif ($char == '}') {
-          $depth--;
-        }
-        elseif ($char == '<') {
+        if ($char == '<') {
           $in_garbage = true;
         }
       }
       elseif ($char === '>') {
         $in_garbage = false;
       }
+      else {
+        if ($char !== '!') {
+          $chars_in_garbage++;
+        }
+      }
 
       $prev_char = $char;
     }
   }
 
-  return $score;
+  return $chars_in_garbage;
 }
